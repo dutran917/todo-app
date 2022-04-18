@@ -1,38 +1,117 @@
-.App {
-  text-align: center;
+@import '~antd/dist/antd.css';
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background: #f1f1f1;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(139, 139, 139);
+}
+
+.header {
+  width: 100%;
+  height: 60px;
+  background: #314659;
+  color: #a4b6c9;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.app-name {
+  font-size: 25px;
+  font-weight: 600;
+  margin: 0 40px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.user-info {
+  display: flex;
+  align-items: center;
+  margin: 0 40px;
+}
+
+.user-info p {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 10px
+}
+
+.container-list-task {
+  height: calc(100vh - 120px);
+  background: #c9d8e7;
+}
+
+.create-btn {
+  margin: 20px;
+  border-radius: 20px;
+}
+
+.list-task {
+  max-height: fit-content;
+  overflow-y: scroll;
+  background: #c9d8e7;
+}
+
+.list-task {
+  /* max-height: 500px; */
+  /* overflow-y: scroll; */
+}
+
+.task-info {
+  padding: 20px;
+  width: 70%;
+  margin: auto;
+  margin-bottom: 20px;
+  background: #f1f1f1;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 1px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+}
+
+.task-info:hover {
+  transform: scale(1.005);
+  box-shadow: 8px 8px rgba(0, 0, 0, 0.1);
+}
+.category {
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 10px;
+}
+.task-bar {
+  background: #c9d8e7;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.search-bar {
+  width: 60%;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
 }
