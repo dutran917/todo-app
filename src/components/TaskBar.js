@@ -1,7 +1,7 @@
 import { CreditCardTwoTone, SearchOutlined } from '@ant-design/icons'
 import { Button, Input } from 'antd'
 import React, { useState, useRef } from 'react'
-const TaskBar = ({ setCreateVisible, search, setSearch }) => {
+const TaskBar = ({ setCreateVisible, setSearch }) => {
     const [searchValue, setSearchValue] = useState('')
     const ref = useRef()
     const handleSubmit = (e) => {

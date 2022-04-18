@@ -55,6 +55,9 @@ const ListTask = ({ search }) => {
         }, 1000)
     }
     useEffect(() => {
+        if (search.length > 0) {
+            setPage(1)
+        }
         axios.get(`https://mvn-task-manager.work/api/tasks?limit=10&page=${page}${search.length > 0 ? `&search=${search}` : ``}`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -65,6 +68,7 @@ const ListTask = ({ search }) => {
             }
             else {
                 setListTask([...listTask, ...res.data.items])
+
             }
         })
     }, [page, search])
@@ -92,7 +96,7 @@ const ListTask = ({ search }) => {
                     paddingLeft: '50px',
                     paddingBottom: '20px',
                     fontSize: '20px',
-                    color: '#314659'                    
+                    color: '#314659'
                 }}>Search by task name "{search}"</div>
             }
             <InfiniteScroll
