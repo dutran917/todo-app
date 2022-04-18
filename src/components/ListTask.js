@@ -86,6 +86,15 @@ const ListTask = ({ search }) => {
     }
     return (
         <div className='container-list-task'>
+            {
+                search.length > 0 &&
+                <div style={{
+                    paddingLeft: '50px',
+                    paddingBottom: '20px',
+                    fontSize: '20px',
+                    color: '#314659'                    
+                }}>Search by task name "{search}"</div>
+            }
             <InfiniteScroll
                 className='list-task'
                 dataLength={listTask.length} //This is important field to render the next data

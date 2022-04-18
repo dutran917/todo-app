@@ -74,7 +74,7 @@ const Login = ({ option }) => {
 
             {token ? <Redirect to='/'></Redirect> : <></>}
             {
-                option == 'login' &&
+                option === 'login' &&
                 <Form style={formStyle} form={form}>
                     {
                         isInvalid && <Alert type='error' message='Username or Password is invalid' closable={true}></Alert>
@@ -95,7 +95,7 @@ const Login = ({ option }) => {
                 </Form>
             }
             {
-                option == 'register' &&
+                option === 'register' &&
                 <Form style={formStyle} form={form}>
                     {
                         registerErr ? <Alert type='error' message={registerErr}></Alert> : <></>

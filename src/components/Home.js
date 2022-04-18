@@ -24,7 +24,7 @@ const Home = () => {
                     <div>
                         <Header user={user} handleLogout={handleLogout}></Header>
                         <CreateTask visible={createVisible} setVisible={setCreateVisible}></CreateTask>
-                        <TaskBar setCreateVisible={setCreateVisible} setSearch={setSearch}></TaskBar>
+                        <TaskBar setCreateVisible={setCreateVisible} search={search} setSearch={setSearch}></TaskBar>
                         <ListTask search={search}></ListTask>
                     </div> :
                     <Redirect to='/login'></Redirect>

@@ -81,7 +81,7 @@ const DisplayTask = ({ taskVisible, task, setTaskVisible }) => {
             title={task ? task.title : ''}
             onOk={handleOk}
             onCancel={handleCancel}
-            footer={edit == false ? [
+            footer={edit === false ? [
                 <Button type='primary' onClick={() => setEdit(true)}>Edit</Button>,
                 <Button type='danger' onClick={handleDelete}>Delete this Task</Button>
             ] : [

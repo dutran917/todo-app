@@ -1,5 +1,4 @@
 import { LogoutOutlined } from '@ant-design/icons'
-import { Button, Typography } from 'antd'
 const Header = ({ user, handleLogout }) => {
 
     return (

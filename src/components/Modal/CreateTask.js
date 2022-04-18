@@ -3,7 +3,6 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addNewTask } from '../../actions/task'
-import { resetPage } from '../../actions/page'
 const CreateTask = ({ visible, setVisible }) => {
     const token = localStorage.getItem('token')
     const [title, setTitle] = useState('')

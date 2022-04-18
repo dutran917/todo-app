@@ -1,9 +1,8 @@
-import axios from 'axios'
 import { CreditCardTwoTone, SearchOutlined } from '@ant-design/icons'
 import { Button, Input } from 'antd'
 import React, { useState, useRef } from 'react'
-const TaskBar = ({ setCreateVisible,setSearch }) => {
-    const [searchValue,setSearchValue] = useState('')
+const TaskBar = ({ setCreateVisible, search, setSearch }) => {
+    const [searchValue, setSearchValue] = useState('')
     const ref = useRef()
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -20,9 +19,10 @@ const TaskBar = ({ setCreateVisible,setSearch }) => {
                 Create a Task
             </Button>
             <form ref={ref} onSubmit={handleSubmit} className='search-bar'>
-                <Input style={{borderRadius:'20px'}} type='text' placeholder='Search task' onChange={e => setSearchValue(e.target.value)}></Input>
+                <Input style={{ borderRadius: '20px' }} type='text' placeholder='Search task' onChange={e => setSearchValue(e.target.value)}></Input>
                 <Button type='ghost' onClick={handleSubmit} icon={<SearchOutlined></SearchOutlined>}></Button>
             </form>
+            
         </div>
     )
 }
