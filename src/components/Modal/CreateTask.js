@@ -1,10 +1,9 @@
 import { Alert, Form, Input, Modal, Select } from 'antd'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addNewTask } from '../../actions/task'
+import axiosInstance from '../../interceptors/axiosInstance'
 const CreateTask = ({ visible, setVisible }) => {
-    const token = localStorage.getItem('token')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState([])
     const [selectedCate, setSelectedCate] = useState([])
@@ -17,31 +16,22 @@ const CreateTask = ({ visible, setVisible }) => {
         setMsg('')
     }
     useEffect(() => {
-        axios.get('https://mvn-task-manager.work/api/categories?limit=10&page=1', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            setCategory(res.data.items)
-        })
+        axiosInstance.get('api/categories?limit=10&page=1')
+            .then(res => {
+                setCategory(res.data.items)
+            })
     }, [])
     const handleOk = () => {
         if (title.length === 0 || selectedCate.length === 0) {
             setMsg("Can't create Task, please enter the title & category")
         }
         else {
-            axios.post('https://mvn-task-manager.work/api/tasks', {
+            axiosInstance.post('api/tasks', {
                 "title": title,
                 "categoryIds": selectedCate
-            },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }).then(res => {
-                    console.log(res)
-                    dispatch(addNewTask(res))
-                })
+            }).then(res => {
+                dispatch(addNewTask(res))
+            })
             setVisible(false)
             clearState()
             form.resetFields(['title', 'category'])

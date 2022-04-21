@@ -1,11 +1,11 @@
 import userReducer from "./user";
 import { combineReducers } from "redux";
 import taskReducer from "./task";
-import { pageReducer } from "./page";
+import { authReducer } from "./auth";
 
 const rootReducer = combineReducers({
     task: taskReducer,
     user: userReducer,
-    page: pageReducer
+    auth: authReducer
 })
 export default rootReducer

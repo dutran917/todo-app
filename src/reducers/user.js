@@ -1,7 +1,7 @@
-const userReducer = (state = {},action) =>{
+const userReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'LOGIN':{
-            const {id,username} = action.payload
+        case 'SET_USER': {
+            const { id, username } = action.payload
             const user = {
                 id,
                 username
@@ -10,13 +10,10 @@ const userReducer = (state = {},action) =>{
                 ...state,
                 ...user
             }
-        }        
-        case 'LOGOUT':{
-            return {}
         }
-        default:{
+        default: {
             return state
         }
     }
-}  
+}
 export default userReducer

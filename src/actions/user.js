@@ -1,11 +1,6 @@
 export const setNewUser = (user) => {
     return {
-        type: 'LOGIN',
+        type: 'GET_USER',
         payload: user
-    }
-}
-export const logout = () => {
-    return {
-        type: 'LOGOUT'
     }
 }

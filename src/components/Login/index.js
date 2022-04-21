@@ -1,13 +1,14 @@
 import { Alert, Button, Form, Input, Typography } from 'antd'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { setNewUser } from '../actions/user'
+import { login } from '../../actions/auth'
+import { setNewUser } from '../../actions/user'
+import axiosInstance from '../../interceptors/axiosInstance'
 const { Title } = Typography
-const Login = ({ option }) => {
+const Login = ({ option, isAuth }) => {
     const formStyle = {
         width: '500px',
         textAlign: 'center',
@@ -25,26 +26,21 @@ const Login = ({ option }) => {
     const dispatch = useDispatch()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [token, setToken] = useState(null)
-    const [isLogin, setIsLogin] = useState(false)
     const [isInvalid, setIsInvalid] = useState(false)
     const [registerErr, setRegisterErr] = useState(null)
     const history = useHistory()
-    useEffect(() => {
-        const tk = window.localStorage.getItem('token')
-        setToken(tk)
-    }, [isLogin])
+
     const handleLoginSubmit = () => {
-        axios.post('https://mvn-task-manager.work/auth/login', {
+        axiosInstance.post('auth/login', {
             "username": username,
             "password": password
         })
             .then(res => {
-                console.log(res)
                 const user = res.data
                 dispatch(setNewUser(user))
                 localStorage.setItem('token', res.data.token)
-                setIsLogin(true)
+                localStorage.setItem('uid', res.data.id)
+                dispatch(login(true))
             })
             .catch(err => {
                 console.log(err)
@@ -54,25 +50,24 @@ const Login = ({ option }) => {
         setIsInvalid(false)
     }
     const handleRegisterSubmit = () => {
-        axios.post('https://mvn-task-manager.work/auth/register', {
+        axiosInstance.post('auth/register', {
             "username": username,
             "password": password
         })
             .then(res => {
-                console.log(res)
                 history.push("/login")
             })
             .catch(err => {
                 setRegisterErr(err.response.data.message)
-                console.log(err.response.data.message)
             })
         form.resetFields(['username-register', 'password-register'])
     }
     const [form] = Form.useForm()
     return (
         <div style={loginForm}>
-
-            {token ? <Redirect to='/'></Redirect> : <></>}
+            {
+                isAuth && <Redirect to='/'></Redirect>
+            }
             {
                 option === 'login' &&
                 <Form style={formStyle} form={form}>

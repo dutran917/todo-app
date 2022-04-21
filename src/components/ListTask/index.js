@@ -1,18 +1,17 @@
-import axios from 'axios'
 import { Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
-import Task from './Task'
+import Task from '../Task/index'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import DisplayTask from './Modal/DisplayTask'
+import DisplayTask from '../Modal/DisplayTask'
 import { useSelector } from 'react-redux'
-const ListTask = ({ search }) => {
+import axiosInstance from '../../interceptors/axiosInstance'
+import './index.css'
+const ListTask = ({ search, page, setPage }) => {
     const [taskVisible, setTaskVisible] = useState(false)
     const [selectedTask, setSelectedTask] = useState(null)
-
-    const token = localStorage.getItem('token')
     const [listTask, setListTask] = useState([])
     const newTask = useSelector(state => state.task)
-    const [page, setPage] = useState(1)
+
 
     const removeTask = (task, listTask) => {
         for (let i = 0; i < listTask.length; i++) {
@@ -55,14 +54,8 @@ const ListTask = ({ search }) => {
         }, 1000)
     }
     useEffect(() => {
-        if (search.length > 0) {
-            setPage(1)
-        }
-        axios.get(`https://mvn-task-manager.work/api/tasks?limit=10&page=${page}${search.length > 0 ? `&search=${search}` : ``}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((res) => {
+
+        axiosInstance.get(`api/tasks?limit=10&page=${page}${search.length > 0 ? `&search=${search}` : ``}`).then((res) => {
             if (page === 1) {
                 setListTask(res.data.items)
             }

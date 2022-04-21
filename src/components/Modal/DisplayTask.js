@@ -1,11 +1,11 @@
 import { deleteTask, updateTask } from '../../actions/task'
 import { Alert, Form, Input, Modal, Select, Button } from 'antd'
-import axios from 'axios'
+import axiosInstance from '../../interceptors/axiosInstance'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import './index.css'
 const DisplayTask = ({ taskVisible, task, setTaskVisible }) => {
     const [edit, setEdit] = useState(false)
-    const token = localStorage.getItem('token')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState([])
     const [selectedCate, setSelectedCate] = useState([])
@@ -20,13 +20,10 @@ const DisplayTask = ({ taskVisible, task, setTaskVisible }) => {
         form.resetFields(['title', 'category'])
     }
     useEffect(() => {
-        axios.get('https://mvn-task-manager.work/api/categories?limit=10&page=1', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            setCategory(res.data.items)
-        })
+        axiosInstance.get('https://mvn-task-manager.work/api/categories?limit=10&page=1')
+            .then(res => {
+                setCategory(res.data.items)
+            })
     }, [])
     const handleOk = () => {
         setTaskVisible(false)
@@ -38,15 +35,10 @@ const DisplayTask = ({ taskVisible, task, setTaskVisible }) => {
         setEdit(false)
     }
     const handleDelete = () => {
-        const token = localStorage.getItem('token')
-        axios.delete(`https://mvn-task-manager.work/api/tasks/${task.id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            console.log(res)
-            dispatch(deleteTask(task))
-        })
+        axiosInstance.delete(`https://mvn-task-manager.work/api/tasks/${task.id}`)
+            .then(res => {
+                dispatch(deleteTask(task))
+            })
         setTaskVisible(false)
     }
     const handleUpdate = () => {
@@ -54,17 +46,12 @@ const DisplayTask = ({ taskVisible, task, setTaskVisible }) => {
             setMsg("Can't update Task, please enter the title & category")
         }
         else {
-            axios.patch(`https://mvn-task-manager.work/api/tasks/${task.id}`, {
+            axiosInstance.patch(`https://mvn-task-manager.work/api/tasks/${task.id}`, {
                 "title": title,
                 "categoryIds": selectedCate,
                 "status": "IN_PROGRESS"
-            },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }).then(res => {
-                    console.log(res)
+            })
+                .then(res => {
                     dispatch(updateTask(res))
                 })
             setTaskVisible(false)

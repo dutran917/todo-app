@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './index.css'
 const Task = ({ taskInfo, setTaskVisible, setSelectedTask }) => {
   return (
     <div className='task-info' onClick={() => {

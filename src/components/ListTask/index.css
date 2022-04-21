@@ -1,0 +1,10 @@
+.container-list-task {
+    height: calc(100vh - 120px);
+    background: #c9d8e7;
+}
+
+.list-task {
+    max-height: fit-content;
+    overflow-y: scroll;
+    background: #c9d8e7;
+}
