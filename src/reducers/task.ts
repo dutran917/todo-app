@@ -1,6 +1,6 @@
 
 
-const taskReducer = (state = null, action) => {
+const taskReducer = (state = {}, action: any) => {
     switch (action.type) {
         case 'ADD_NEW_TASK': {
             const tmp = action.payload

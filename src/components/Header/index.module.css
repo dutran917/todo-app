@@ -6,24 +6,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  
-  .app-name {
+}
+
+.appName {
     font-size: 25px;
     font-weight: 600;
     margin: 0 40px;
-  }
-  
-  .user-info {
+}
+
+.userInfo {
     display: flex;
     align-items: center;
     margin: 0 40px;
-  }
-  
-  .user-info p {
+}
+
+.userInfo p {
     font-size: 20px;
     font-weight: 500;
-    margin: 0 10px
-  }
-  
-  
+    margin: 0 10px;
+}

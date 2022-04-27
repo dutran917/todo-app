@@ -6,6 +6,6 @@ import { authReducer } from "./auth";
 const rootReducer = combineReducers({
     task: taskReducer,
     user: userReducer,
-    auth: authReducer
-})
-export default rootReducer
+    auth: authReducer,
+});
+export default rootReducer;
