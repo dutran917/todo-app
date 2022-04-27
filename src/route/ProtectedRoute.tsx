@@ -4,8 +4,8 @@ import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";
 
 interface ProtectedRouteProps {
-    isAuthRoute: Boolean;
-    isProtectedRoute: Boolean;
+    isAuthRoute: boolean;
+    isProtectedRoute: boolean;
     path: string;
     Component: any;
 }
