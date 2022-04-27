@@ -5,12 +5,18 @@ const axiosInstance = axios.create({
     baseURL: baseURL,
 })
 axiosInstance.interceptors.request.use((req) => {
-    req.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+    const token = localStorage.getItem('token')
+    if(token) {
+        req.headers.Authorization = `Bearer ${token}`
+    }
     return req
 });
 
 axiosInstance.interceptors.response.use((res) => {
-    res.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+    const token = localStorage.getItem('token')
+    if(token) {
+        res.headers.Authorization = `Bearer ${token}`
+    }
     return res
 });
 

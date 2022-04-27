@@ -1,9 +1,9 @@
-.container-list-task {
+.containerListTask {
     height: calc(100vh - 120px);
     background: #c9d8e7;
 }
 
-.list-task {
+.listTask {
     max-height: fit-content;
     overflow-y: scroll;
     background: #c9d8e7;
