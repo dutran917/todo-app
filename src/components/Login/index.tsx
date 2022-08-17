@@ -1,5 +1,5 @@
 import { Alert, Button, Form, Input, Typography } from "antd";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import { login } from "../../actions/auth";
 import { setNewUser } from "../../actions/user";
 import axiosInstance from "../../interceptors/axiosInstance";
 import style from "./index.module.css";
+import { CheckOutlined,  EyeInvisibleOutlined, EyeTwoTone, CloseOutlined  } from "@ant-design/icons";
 const { Title } = Typography;
 
 interface LoginProps {
@@ -17,10 +18,19 @@ const Login = ({ option }: LoginProps) => {
     const dispatch = useDispatch();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPass,setConfirmPass] = useState("")
+    const [check,setCheck] = useState(false)
     const [isInvalid, setIsInvalid] = useState(false);
-    const [registerErr, setRegisterErr] = useState(null);
+    const [registerErr, setRegisterErr] = useState("");
     const history = useHistory();
-
+    useEffect(()=> {
+        if(password.length > 0 && confirmPass.length >0 &&  password === confirmPass) {
+            setCheck(true)
+        }
+        else {
+            setCheck(false)
+        }
+    },[confirmPass, password])
     const handleLoginSubmit = () => {
         axiosInstance
             .post("auth/login", {
@@ -43,18 +53,23 @@ const Login = ({ option }: LoginProps) => {
     };
 
     const handleRegisterSubmit = () => {
-        axiosInstance
+        if(check) {
+            axiosInstance
             .post("auth/register", {
                 username: username,
                 password: password,
             })
-            .then((res) => {
-                history.push("/login");
+            .then((res) => {         
+                    history.push("/login");
             })
             .catch((err) => {
                 setRegisterErr(err.response.data.message);
             });
-        form.resetFields(["username-register", "password-register"]);
+        }
+        else {
+            setRegisterErr("Please enter the correct password confirmation")
+        }
+        form.resetFields(["username-register", "password-register","cf-password-register"]);
     };
     const [form] = Form.useForm();
     return (
@@ -109,11 +124,20 @@ const Login = ({ option }: LoginProps) => {
                         ></Input>
                     </Form.Item>
                     <Form.Item label="Password" name="password-register">
-                        <Input
-                            type="password"
+                        <Input.Password
                             placeholder="password"
                             onChange={(e) => setPassword(e.target.value)}
-                        ></Input>
+                            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} 
+                        />
+                    </Form.Item>
+                    <Form.Item label="Confirm Password" name="cf-password-register">
+                        <Input.Password
+                            prefix={check ? <CheckOutlined style={{color: "green"}}/> : <CloseOutlined style={{color: "red"}}/>}
+                            placeholder="confirm password"
+                            onChange={(e) => setConfirmPass(e.target.value)}
+                            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} 
+                        />
+                       
                     </Form.Item>
                     <Button onClick={handleRegisterSubmit}>Register</Button>
                     <div>
